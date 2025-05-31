@@ -20,7 +20,7 @@ ESCAPED_CHARS = [r"\\", r"\n", r"\r", r"\t", r"\"", r"\'", r"\0", r"\a", r"\b", 
 
 # Mix ratio between dictionary values and generated values (0-1)
 # 0: only generated values, 1: only dictionary values when available
-DICT_MIX_RATIO = 0.9  # Default value
+DICT_MIX_RATIO = 0.5  # Default value
 _dict_mix_ratio_env = os.getenv("DICT_MIX_RATIO")
 if _dict_mix_ratio_env is not None:
     try:
