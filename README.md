@@ -1,4 +1,4 @@
-# df-afl - Dragonfly Testing Framework with AFL++
+# Dragonfly Testing Framework with AFL++
 
 This framework is designed for testing the [Dragonfly](https://github.com/dragonflydb/dragonfly) server using American Fuzzy Lop (AFL++). Dragonfly is a modern replacement for Redis and Memcached with high performance.
 
