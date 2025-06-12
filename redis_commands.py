@@ -91,11 +91,10 @@ REDIS_COMMANDS = {
     "LINDEX": {"args": ["key", "index"], "optional_args": []},
     "LSET": {"args": ["key", "index", "element"], "optional_args": []},
     "LTRIM": {"args": ["key", "start", "stop"], "optional_args": []},
-    # Commenting out blocking list commands
-    # "BLPOP": {"args": ["key", "timeout"], "optional_args": ["key ..."]},
-    # "BRPOP": {"args": ["key", "timeout"], "optional_args": ["key ..."]},
-    # "BLMOVE": {"args": ["source", "destination", "LEFT|RIGHT", "LEFT|RIGHT", "timeout"], "optional_args": []},
-    # "BRPOPLPUSH": {"args": ["source", "destination", "timeout"], "optional_args": []},
+    "BLPOP": {"args": ["key", "timeout"], "optional_args": ["key ..."]},
+    "BRPOP": {"args": ["key", "timeout"], "optional_args": ["key ..."]},
+    "BLMOVE": {"args": ["source", "destination", "LEFT|RIGHT", "LEFT|RIGHT", "timeout"], "optional_args": []},
+    "BRPOPLPUSH": {"args": ["source", "destination", "timeout"], "optional_args": []},
     # Hash operations commands
     "HSET": {"args": ["key", "field", "value"], "optional_args": ["field value ..."]},
     "HSETNX": {"args": ["key", "field", "value"], "optional_args": []},
@@ -187,11 +186,10 @@ REDIS_COMMANDS = {
     },
     # Pub/Sub commands
     "PUBLISH": {"args": ["channel", "message"], "optional_args": []},
-    # Commenting out blocking subscription commands
-    # "SUBSCRIBE": {"args": ["channel"], "optional_args": ["channel ..."]},
-    # "UNSUBSCRIBE": {"args": ["channel"], "optional_args": ["channel ..."]},
-    # "PSUBSCRIBE": {"args": ["pattern"], "optional_args": ["pattern ..."]},
-    # "PUNSUBSCRIBE": {"args": ["pattern"], "optional_args": ["pattern ..."]},
+    "SUBSCRIBE": {"args": ["channel"], "optional_args": ["channel ..."]},
+    "UNSUBSCRIBE": {"args": ["channel"], "optional_args": ["channel ..."]},
+    "PSUBSCRIBE": {"args": ["pattern"], "optional_args": ["pattern ..."]},
+    "PUNSUBSCRIBE": {"args": ["pattern"], "optional_args": ["pattern ..."]},
     "PUBSUB": {"args": ["subcommand"], "optional_args": ["argument ..."]},
     # Transaction commands
     "MULTI": {"args": [], "optional_args": []},
@@ -212,8 +210,7 @@ REDIS_COMMANDS = {
     "FLUSHALL": {"args": [], "optional_args": ["ASYNC", "SYNC"]},
     "DBSIZE": {"args": [], "optional_args": []},
     "CONFIG": {"args": ["GET", "pattern"], "optional_args": []},
-    # Commenting out blocking monitor command
-    # "MONITOR": {"args": [], "optional_args": []},
+    "MONITOR": {"args": [], "optional_args": []},
     "DEBUG": {"args": ["subcommand"], "optional_args": ["arg", "arg ..."]},
     # Bitmap operations
     "BITCOUNT": {"args": ["key"], "optional_args": ["start", "end", "BYTE|BIT"]},
@@ -253,11 +250,10 @@ REDIS_COMMANDS = {
     "XRANGE": {"args": ["key", "start", "end"], "optional_args": ["COUNT", "count"]},
     "XREVRANGE": {"args": ["key", "end", "start"], "optional_args": ["COUNT", "count"]},
     "XLEN": {"args": ["key"], "optional_args": []},
-    # Commenting out XREAD which can be blocking with BLOCK parameter
-    # "XREAD": {
-    #     "args": ["STREAMS", "key", "id"],
-    #     "optional_args": ["key id ...", "COUNT", "count", "BLOCK", "milliseconds"],
-    # },
+    "XREAD": {
+        "args": ["STREAMS", "key", "id"],
+        "optional_args": ["key id ...", "COUNT", "count", "BLOCK", "milliseconds"],
+    },
     # Stream commands
     "XACK": {"args": ["key", "group", "ID"], "optional_args": ["ID ..."]},
     "XAUTOCLAIM": {
@@ -288,11 +284,10 @@ REDIS_COMMANDS = {
     "XINFO GROUPS": {"args": ["key"], "optional_args": []},
     "XINFO STREAM": {"args": ["key"], "optional_args": ["FULL", "COUNT", "count"]},
     "XPENDING": {"args": ["key", "group"], "optional_args": ["start", "end", "count", "consumer"]},
-    # Commenting out XREADGROUP which can be blocking with BLOCK parameter
-    # "XREADGROUP": {
-    #     "args": ["GROUP", "group", "consumer", "STREAMS", "key", "ID"],
-    #     "optional_args": ["key ID ...", "COUNT", "count", "BLOCK", "milliseconds", "NOACK"],
-    # },
+    "XREADGROUP": {
+        "args": ["GROUP", "group", "consumer", "STREAMS", "key", "ID"],
+        "optional_args": ["key ID ...", "COUNT", "count", "BLOCK", "milliseconds", "NOACK"],
+    },
     "XSETID": {"args": ["key", "last-id"], "optional_args": []},
     "XTRIM": {
         "args": ["key", "MAXLEN", "count"],
@@ -611,13 +606,13 @@ REDIS_COMMANDS = {
     "LOLWUT": {"args": [], "optional_args": ["VERSION", "version"]},
     "ROLE": {"args": [], "optional_args": []},
     "SAVE": {"args": [], "optional_args": []},
-    # "SHUTDOWN": {"args": [], "optional_args": ["NOSAVE", "SAVE", "NOW", "FORCE", "ABORT"]},
-    # "SLAVEOF": {"args": ["host", "port"], "optional_args": []},
-    # "REPLICAOF": {"args": ["host", "port"], "optional_args": []},
+    "SHUTDOWN": {"args": [], "optional_args": ["NOSAVE", "SAVE", "NOW", "FORCE", "ABORT"]},
+    "SLAVEOF": {"args": ["host", "port"], "optional_args": []},
+    "REPLICAOF": {"args": ["host", "port"], "optional_args": []},
     "SWAPDB": {"args": ["index1", "index2"], "optional_args": []},
-    # "SYNC": {"args": [], "optional_args": []},
-    # "WAIT": {"args": ["numreplicas", "timeout"], "optional_args": []},
-    # "WAITAOF": {"args": ["numlocal", "numreplicas", "timeout"], "optional_args": []},
+    "SYNC": {"args": [], "optional_args": []},
+    "WAIT": {"args": ["numreplicas", "timeout"], "optional_args": []},
+    "WAITAOF": {"args": ["numlocal", "numreplicas", "timeout"], "optional_args": []},
     "RESET": {"args": [], "optional_args": []},
     # Add commands from Valkey
     "COMMANDLOG": {"args": [], "optional_args": []},
@@ -718,7 +713,7 @@ REDIS_COMMANDS = {
     "PFSELFTEST": {"args": [], "optional_args": []},
     "PUBSUB SHARDCHANNELS": {"args": [], "optional_args": ["pattern"]},
     "PUBSUB SHARDNUMSUB": {"args": [], "optional_args": ["shardchannel", "shardchannel ..."]},
-    # "REPLCONF": {"args": ["option", "value"], "optional_args": []},
+    "REPLCONF": {"args": ["option", "value"], "optional_args": []},
     "RESTORE-ASKING": {
         "args": ["key", "ttl", "serialized-value"],
         "optional_args": ["REPLACE", "ABSTTL", "IDLETIME", "seconds", "FREQ", "frequency"],
@@ -739,9 +734,8 @@ REDIS_COMMANDS = {
         ],
     },
     "SPUBLISH": {"args": ["shardchannel", "message"], "optional_args": []},
-    # Commenting out shardings subscription commands
-    # "SSUBSCRIBE": {"args": ["shardchannel"], "optional_args": ["shardchannel ..."]},
-    # "SUNSUBSCRIBE": {"args": ["shardchannel"], "optional_args": ["shardchannel ..."]},
+    "SSUBSCRIBE": {"args": ["shardchannel"], "optional_args": ["shardchannel ..."]},
+    "SUNSUBSCRIBE": {"args": ["shardchannel"], "optional_args": ["shardchannel ..."]},
     # Add cluster commands from Valkey
     "CLUSTER": {"args": [], "optional_args": []},
     "CLUSTER ADDSLOTS": {"args": ["slot"], "optional_args": ["slot ..."]},
@@ -820,6 +814,30 @@ else:
     print(
         "Info: Environment variable REDIS_FOCUS_COMMANDS is not set or empty. Focus commands will be disabled."
     )
+
+# Excluded commands logic
+_DEFAULT_EXCLUDED_COMMANDS = ["SHUTDOWN", "FLUSHDB", "FLUSHALL"]
+_RAW_EXCLUDE_COMMANDS_ENV = os.getenv("REDIS_EXCLUDE_COMMANDS", "").strip()
+
+if _RAW_EXCLUDE_COMMANDS_ENV:
+    # If environment variable is provided, use it to define excluded commands
+    EXCLUDED_COMMANDS = [cmd.strip().upper() for cmd in _RAW_EXCLUDE_COMMANDS_ENV.split(",") if cmd.strip()]
+else:
+    # Fallback to default list
+    EXCLUDED_COMMANDS = _DEFAULT_EXCLUDED_COMMANDS.copy()
+
+# Validate excluded commands and issue warnings for unknown ones
+_invalid_excludes = [cmd for cmd in EXCLUDED_COMMANDS if cmd not in REDIS_COMMANDS]
+if _invalid_excludes:
+    print(
+        f"Warning: Invalid commands in REDIS_EXCLUDE_COMMANDS will be ignored: {_invalid_excludes}"
+    )
+    EXCLUDED_COMMANDS = [cmd for cmd in EXCLUDED_COMMANDS if cmd in REDIS_COMMANDS]
+
+if EXCLUDED_COMMANDS:
+    print(f"Info: The following commands will be excluded from fuzzing: {EXCLUDED_COMMANDS}")
+else:
+    print("Info: No commands are excluded from fuzzing.")
 
 # Data types for random value generation
 DATA_TYPES = {

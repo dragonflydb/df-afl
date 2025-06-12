@@ -11,6 +11,7 @@ from redis_commands import (
     ESCAPED_CHARS,
     enhance_data_types,
     FOCUS_COMMANDS,
+    EXCLUDED_COMMANDS,
 )
 
 
@@ -21,8 +22,10 @@ def create_afl_dictionary(output_file=DICT_FILE):
 
     dictionary = []
 
-    # Adding all commands
+    # Adding all commands except excluded ones
     for command in REDIS_COMMANDS:
+        if command in EXCLUDED_COMMANDS:
+            continue
         dictionary.append(f'"{command}"')
 
     # We must add FOCUS_COMMANDS if they are set and valid
@@ -31,6 +34,8 @@ def create_afl_dictionary(output_file=DICT_FILE):
         # (although the previous logic of adding all commands already does this, but this is for safety)
         for command in FOCUS_COMMANDS:
             command_str = f'"{command}"'
+            if command in EXCLUDED_COMMANDS:
+                continue  # Skip excluded focus commands
             if command_str not in dictionary:
                 dictionary.append(command_str)
                 print(f"Info: Focus command '{command}' added to dictionary.")

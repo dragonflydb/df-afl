@@ -20,6 +20,7 @@ from redis_commands import (
     load_input_dict,
     enhance_data_types,
     FOCUS_COMMANDS,
+    EXCLUDED_COMMANDS,
 )
 
 # Constants
@@ -247,24 +248,32 @@ class RedisCommandGenerator:
     @staticmethod
     def generate_random_command():
         """Generates a random Redis command with arguments"""
+        # Prepare candidate command lists excluding the excluded commands
+        available_commands = [cmd for cmd in REDIS_COMMANDS.keys() if cmd not in EXCLUDED_COMMANDS]
+
+        # Sanity check: if everything is excluded, fallback to full list to avoid empty
+        if not available_commands:
+            available_commands = list(REDIS_COMMANDS.keys())
+
+        # Prepare focus commands that are not excluded
+        focus_candidates = [cmd for cmd in FOCUS_COMMANDS if cmd not in EXCLUDED_COMMANDS]
+
         # Handle focus commands based on their count
-        if FOCUS_COMMANDS:
-            if len(FOCUS_COMMANDS) == 1:
+        if focus_candidates:
+            if len(focus_candidates) == 1:
                 # Single command: 30% probability (original behavior)
                 if random.random() < 0.30:
-                    command = FOCUS_COMMANDS[0]
-                    # print(f"Info: (generate_random_command) Used single FOCUS_COMMAND: {command}") # For debugging
+                    command = focus_candidates[0]
                 else:
-                    command = random.choice(list(REDIS_COMMANDS.keys()))
+                    command = random.choice(available_commands)
             else:
                 # Multiple commands: 50% probability for any of the focus commands
                 if random.random() < 0.50:
-                    command = random.choice(FOCUS_COMMANDS)
-                    # print(f"Info: (generate_random_command) Used one of FOCUS_COMMANDS: {command}") # For debugging
+                    command = random.choice(focus_candidates)
                 else:
-                    command = random.choice(list(REDIS_COMMANDS.keys()))
+                    command = random.choice(available_commands)
         else:
-            command = random.choice(list(REDIS_COMMANDS.keys()))
+            command = random.choice(available_commands)
 
         command_info = REDIS_COMMANDS[command]
 
@@ -409,8 +418,8 @@ class AFLFuzzer:
                 command = parts[0].upper()
                 args = parts[1:] if len(parts) > 1 else []
 
-                # Checking if there's such a command
-                if command in REDIS_COMMANDS:
+                # Checking if command exists and is not excluded
+                if command in REDIS_COMMANDS and command not in EXCLUDED_COMMANDS:
                     parsed_commands.append((command, args))
 
             print(f"Parsed {len(parsed_commands)} commands from input")

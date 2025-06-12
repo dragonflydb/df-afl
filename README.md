@@ -133,6 +133,31 @@ export REDIS_FOCUS_COMMANDS="SET,GET,HSET,SADD"
 unset REDIS_FOCUS_COMMANDS
 ```
 
+#### REDIS_EXCLUDE_COMMANDS
+
+Excludes potentially dangerous Redis/Dragonfly commands from fuzzing (to avoid accidental data loss or server shutdown).
+
+By default, three high-risk commands are disabled:
+
+```bash
+SHUTDOWN  # Stops the server
+FLUSHDB   # Removes all keys from the current database
+FLUSHALL  # Removes all keys from all databases
+```
+
+Configure the exclusion list via an environment variable:
+
+```bash
+# Extend the exclusion list (comma-separated)
+export REDIS_EXCLUDE_COMMANDS="SHUTDOWN,FLUSHDB,FLUSHALL,SAVE"
+
+# Disable exclusions completely (NOT recommended on a production server)
+export REDIS_EXCLUDE_COMMANDS=""
+
+# Or simply unset the variable
+unset REDIS_EXCLUDE_COMMANDS
+```
+
 #### Other Variables
 
 ```bash
