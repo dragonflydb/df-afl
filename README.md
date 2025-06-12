@@ -84,6 +84,14 @@ cd /sys/devices/system/cpu
 echo performance | tee cpu*/cpufreq/scaling_governor
 ```
 
+You can also perform the same preparation automatically:
+
+```bash
+./scripts/prepare_system.sh
+```
+
+(The script will ask for sudo privileges if not run as root.)
+
 ### 3. Running Tests
 
 ```bash
@@ -174,6 +182,7 @@ export MAX_COMMANDS="30"             # Maximum commands per test
 - `redis_commands.py` - Redis command definitions and data generators
 - `redis_dict_generator.py` - Dictionary generator for AFL++
 - `run_afl_fuzzing.sh` - Test execution script
+- `scripts/prepare_system.sh` - System preparation helper script
 - `input/` - Initial test cases
 - `output/` - AFL++ results (crashes, hangs, queue)
 
